@@ -1,9 +1,17 @@
-const EmotionItem = ({ id, img, name, onclick, isSelected }) => {
+import "./EmotionItem.css";
+const EmotionItem = ({ id, img, name, onClick, isSelected }) => {
   const handleOnClick = () => {
-    onclick(id);
+    onClick(id);
   };
+
   return (
-    <div className="EmotionItem" onClick={handleOnClick}>
+    <div
+      className={[
+        "EmotionItem",
+        isSelected ? `EmotionItem_on_${id}` : "EmotionItem_off",
+      ].join(" ")}
+      onClick={handleOnClick}
+    >
       <img alt={`emotion${id}`} src={img} />
       <span>{name}</span>
     </div>
