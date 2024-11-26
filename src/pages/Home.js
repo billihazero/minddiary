@@ -1,5 +1,7 @@
+import Editor from "../component/Editor";
+
 const Home = () => {
-  return <div>Homepage입니다</div>;
+  return <div>홈페이지</div>;
 };
 
 export default Home;
