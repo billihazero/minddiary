@@ -1,9 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import "./DiaryList.css";
+import { useNavigate } from "react-router-dom";
 
 const DiaryList = ({ data }) => {
+  const navigate = useNavigate();
+
+  const onClickNew = () => {
+    navigate("/new");
+  };
   const [sortType, setSortType] = useState("latest");
+  const [sortedData, setSortedData] = useState([]);
+
+  useEffect(() => {
+    const compare = (a, b) => {
+      if (sortType === "latest") {
+        return Number(b.date) - Number(a.date);
+      } else {
+        return Number(a.date) - Number(b.date);
+      }
+    };
+    const copyList = JSON.parse(JSON.stringify(data));
+    copyList.sort(compare);
+    setSortedData(copyList);
+  }, [data, sortType]);
 
   const onChangeSortType = (e) => {
     setSortType(e.target.value);
@@ -26,7 +46,11 @@ const DiaryList = ({ data }) => {
           </select>
         </div>
         <div className="right_col">
-          <Button type={"positive"} text={"새 일기 쓰기"} />
+          <Button
+            type={"positive"}
+            text={"새 일기 쓰기"}
+            onClick={onClickNew}
+          />
         </div>
       </div>
     </div>
